@@ -6,8 +6,8 @@ pipeline {
             steps {
                 sshagent(['awskey']) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no ubuntu@44.220.89.31 "
-                            sudo apt-get update && \
+                        ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=60 ubuntu@44.220.89.31 "
+                            sudo apt-get -y update && \
                             sudo apt-get install -y apache2 && \
                             sudo systemctl enable apache2 && \
                             sudo systemctl start apache2
@@ -20,9 +20,9 @@ pipeline {
             steps {
                 sshagent(['awskey']) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no ubuntu@44.220.89.31 "
+                        ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=60 ubuntu@44.220.89.31 "
                             sudo cat /etc/os-release && \
-                            sudo grep -E '\\\" [45][0-9]{2} ' /var/log/apache2/* || echo 'There are no such errors.'
+                            sudo grep -E '\\\"[0-9]{2} ' /var/log/apache2/* || echo 'There are no such errors.'
                         "
                     '''
                 }
