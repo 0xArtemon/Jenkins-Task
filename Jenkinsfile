@@ -22,7 +22,7 @@ pipeline {
                     sh '''
                         ssh -o StrictHostKeyChecking=no ubuntu@44.220.89.31 "
                             sudo cat /etc/os-release && \
-                            sudo grep -E '\" [45][0-9]{2} ' /var/log/apache2/* || echo 'There are no such errors.'
+                            sudo grep -E '\\\" [45][0-9]{2} ' /var/log/apache2/* || echo 'There are no such errors.'
                         "
                     '''
                 }
